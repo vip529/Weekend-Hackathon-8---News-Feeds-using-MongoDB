@@ -14,7 +14,7 @@ app.get('/newFeeds',(req,res)=>{
     const limit  = Object.is(parseInt(req.query.limit),NaN) ? 10 : parseInt(req.query.limit);
     const offset = Object.is(parseInt(req.query.offset),NaN) ? 0 : parseInt(req.query.offset);
     
-    newsArticleModel.find({}).skip(offset).limit(limit)
+    newsArticleModel.find({}).limit(limit).skip(offset)
     .then((result)=>{
         res.json(result);
     })
