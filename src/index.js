@@ -19,8 +19,8 @@ function filterInt(value) {
   }
 
 app.get('/newFeeds',(req,res)=>{
-    const limit  = Object.is(filterInt(req.query.limit),NaN) ? 10 : parseInt(req.query.limit);
-    const offset = Object.is(filterInt(req.query.offset),NaN) ? 0 : parseInt(req.query.offset);
+    const limit  = Object.is(Number(req.query.limit),NaN) || Number(req.query.limit) === 0 ? 10 : parseInt(req.query.limit);
+    const offset = Object.is(Number(req.query.offset),NaN) || Number(req.query.offset) === 0 ? 0 : parseInt(req.query.offset);
     newsArticleModel.find({}).skip(offset).limit(limit)
     .then((result)=>{
         console.log(result.length)
