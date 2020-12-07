@@ -10,20 +10,12 @@ const onePageArticleCount = 10
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-function filterInt(value) {
-    if (/^[-+]?(\d+|Infinity)$/.test(value)) {
-      return Number(value)
-    } else {
-      return NaN
-    }
-  }
 
 app.get('/newFeeds',(req,res)=>{
-    const limit  = Object.is(Number(req.query.limit),NaN) || Number(req.query.limit) === 0 ? 10 : parseInt(req.query.limit);
+    const limit  = Object.is(Number(req.query.limit),NaN)  || Number(req.query.limit) === 0 ? 10 : parseInt(req.query.limit);
     const offset = Object.is(Number(req.query.offset),NaN) || Number(req.query.offset) === 0 ? 0 : parseInt(req.query.offset);
     newsArticleModel.find({}).skip(offset).limit(limit)
     .then((result)=>{
-        console.log(result.length)
         res.json(result);
     })
     .catch((err)=>{
